@@ -14,6 +14,7 @@ const Exercise = props => (
     {/* substring(0,10) Date shows date+time+timezone, (0,10) cuts time and timezone */}
     <td>
       <Link to={"/edit/"+props.exercise._id}>edit</Link> | <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</a>
+      {/* <Button onClick={() => { props.deleteExercise(props.exercise._id) }}>delete </Button> */}
      {/* after you should change this into a button and style it as a link <a href="#" onClick={() => { props.deleteExercise(props.exercise._id) }}>delete</a> */}
     </td>
   </tr>
