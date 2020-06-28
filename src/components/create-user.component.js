@@ -9,7 +9,9 @@ export default class CreateUser extends Component {
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
-      username: ''
+      username: '',
+      backendAddress:  'https://et-exercise-tracker.herokuapp.com' ,
+
     }
   }
 
@@ -28,7 +30,7 @@ export default class CreateUser extends Component {
 
     console.log(user);
 
-    axios.post('http://localhost:5000/users/add', user)
+    axios.post(this.state.backendAddress+'/users/add', user)
       .then(res => console.log(res.data));
 
     this.setState({

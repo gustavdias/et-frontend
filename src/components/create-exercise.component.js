@@ -20,13 +20,16 @@ export default class CreateExercise extends Component {
       description: '',
       duration: 0,
       date: new Date(),
-      users: []
+      users: [],
+      //new
+      backendAddress:  'https://et-exercise-tracker.herokuapp.com' ,
+
     }
   }
 
   //Why in componentDidMount???
   componentDidMount() {
-    axios.get('http://localhost:5000/users/')
+    axios.get(this.state.backendAddress+'/users/')
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
@@ -77,7 +80,7 @@ export default class CreateExercise extends Component {
 
     console.log(exercise);
     //This is where the magic happens! This is where the connection between back and front end takes place
-    axios.post('http://localhost:5000/exercises/add', exercise)
+    axios.post(this.state.backendAddress+ '/add', exercise)
       .then(res => console.log(res.data));
 
     window.location = '/';
