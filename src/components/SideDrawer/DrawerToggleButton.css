@@ -1,0 +1,40 @@
+.toggle-button {
+    
+    display: flex;
+    
+    /* flex-direction: column separates each line */
+    flex-direction: column;
+
+    /* Spreads the lines/columns */
+    /* space-between vs space-around distributes between or around each line */
+    justify-content: space-around;
+
+    
+    height: 24px;
+    width: 30px;
+
+    /* For the lines to appear, the background should be transparent */
+    background: transparent;
+    border: none;
+
+    /* Changes the cursor into pointer */
+    cursor: pointer;
+    padding: 0;
+
+    /* to make sure the lines will stay inside the button */
+    box-sizing: border-box;
+}
+
+.toggle-button:focus {
+    outline: none;
+}
+
+
+/* Makes one line for each div */
+.toggle-button__line {
+    /* 100% wont work for the div inside the button!!! */
+    width: 30px;
+
+    height: 2px;
+    background: white;
+}
