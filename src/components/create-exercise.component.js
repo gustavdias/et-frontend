@@ -23,7 +23,7 @@ export default class CreateExercise extends Component {
   }
 
   componentDidMount() {
-    axios.get('https://et-exercise-tracker.herokuapp.com//users/')
+    axios.get('https://et-exercise-tracker.herokuapp.com/users/')
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
