@@ -5,8 +5,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 export default class CreateExercise extends Component {
   constructor(props) {
-    //In JS Classes you have to call super when defining a constructor of a subclass
-    //All React component classes that have a constructor should start with a super props call
     super(props);
 
     this.onChangeUsername = this.onChangeUsername.bind(this);
@@ -24,9 +22,8 @@ export default class CreateExercise extends Component {
     }
   }
 
-  //Why in componentDidMount???
   componentDidMount() {
-    axios.get('http://localhost:5000/users/')
+    axios.get('https://et-exercise-tracker.herokuapp.com//users/')
       .then(response => {
         if (response.data.length > 0) {
           this.setState({
@@ -76,8 +73,8 @@ export default class CreateExercise extends Component {
     }
 
     console.log(exercise);
-    //This is where the magic happens! This is where the connection between back and front end takes place
-    axios.post('http://localhost:5000/exercises/add', exercise)
+
+    axios.post('https://et-exercise-tracker.herokuapp.com//exercises/add', exercise)
       .then(res => console.log(res.data));
 
     window.location = '/';

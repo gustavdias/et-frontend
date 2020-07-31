@@ -1,0 +1,87 @@
+.toolbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #521751;
+    height: 56px;
+  }
+  
+  .toolbar__navigation {
+    /* flexbox with     display: flex; */
+    display: flex;
+  
+    /* For the nav to follow the height of the toolbar, a 100% of the heigh of the toolbar (56px) */
+    height: 100%;
+  
+    /* align-items: center; puts toolbar items in the center of x axis*/
+    align-items: center;
+    padding: 0 1rem;
+  }
+  
+  /* To make space between the logo and the burger-menu */
+  .toolbar__logo {
+    margin-left: 1rem;
+  }
+  
+  /* This selects the anchor tag from the logo in the toolbar */
+  .toolbar__logo a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.5rem;
+  }
+  
+  /* !!!!!!!!!!!!! This spacer div is what separates the logo from the items!!!!!!!!!!!!! */
+  .spacer {
+    /* Value of 1 means it will take all the available space */
+    flex: 0.95;
+  }
+  
+  .toolbar_navigation-items ul {
+    /* To remove the list dots, set list-style: none */
+    list-style: none;
+  
+    /* Insted of giving space on the ul, you give for each item li */
+    margin: 0;
+    padding: 0;
+  
+    /* flexbox puts each item side by side */
+    display: flex;
+  }
+  
+  /* Insted of giving space on the ul, you give for each item li */
+  .toolbar_navigation-items li {
+    padding: 0 0.5rem;
+  }
+  
+  .toolbar_navigation-items a {
+    color: white;
+    text-decoration: none;
+  }
+  
+  /* Active and hover for toolbar items */
+  .toolbar_navigation-items a:hover,
+  .toolbar_navigation-items a:active {
+    color: #fa923f;
+  }
+  
+   {
+    /* make sure you don't see items when you are in mobile */
+  }
+  @media (max-width: 768px) {
+    .toolbar_navigation-items {
+      display: none;
+    }
+  }
+  
+  /* you deactivate this class if in desktop to make the burger menu disappear */
+  @media (min-width: 769px) {
+      .toolbar__toggle-button {
+        display: none;
+      }
+  }
+  /* if there isn't a button, there is no need for margin */
+  /* .toolbar__logo {
+        margin-left: 0;
+      } */
+  

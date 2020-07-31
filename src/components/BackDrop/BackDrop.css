@@ -1,0 +1,18 @@
+.backdrop {
+    /* Fixed, so you can't scroll it away */
+    position: fixed;
+  
+    /* To cover the fullpage */
+    width: 100%;
+    height: 100%;
+  
+    /* to overlap everything (including the toolbar */
+    top: 0;
+    left: 0;
+  
+    background: rgba(0, 0, 0, 0.3);
+  
+    /* It works on the z axis, so if you want to put a element over it, use a value higher than z-index: 100; */
+    z-index: 100;
+  }
+  
