@@ -1,18 +1,44 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 
-export default class CreateUser extends Component {
+export default class CreateExercise extends Component {
   constructor(props) {
+    //In JS Classes you have to call super when defining a constructor of a subclass
+    //All React component classes that have a constructor should start with a super props call
     super(props);
 
     this.onChangeUsername = this.onChangeUsername.bind(this);
+    this.onChangeDescription = this.onChangeDescription.bind(this);
+    this.onChangeDuration = this.onChangeDuration.bind(this);
+    this.onChangeDate = this.onChangeDate.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
 
     this.state = {
       username: '',
-      backendAddress:  'https://et-exercise-tracker.herokuapp.com' ,
-
+      description: '',
+      duration: 0,
+      date: new Date(),
+      users: []
     }
+  }
+
+  //Why in componentDidMount???
+  componentDidMount() {
+    axios.get('https://et-exercise-tracker.herokuapp.com/users/' || 'http://localhost:5000/users/')
+      .then(response => {
+        if (response.data.length > 0) {
+          this.setState({
+            users: response.data.map(user => user.username),
+            username: response.data[0].username
+          })
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+
   }
 
   onChangeUsername(e) {
@@ -21,42 +47,97 @@ export default class CreateUser extends Component {
     })
   }
 
+  onChangeDescription(e) {
+    this.setState({
+      description: e.target.value
+    })
+  }
+
+  onChangeDuration(e) {
+    this.setState({
+      duration: e.target.value
+    })
+  }
+
+  onChangeDate(date) {
+    this.setState({
+      date: date
+    })
+  }
+
   onSubmit(e) {
     e.preventDefault();
 
-    const user = {
-      username: this.state.username
+    const exercise = {
+      username: this.state.username,
+      description: this.state.description,
+      duration: this.state.duration,
+      date: this.state.date
     }
 
-    console.log(user);
-
-    axios.post(this.state.backendAddress+'/users/add', user)
+    console.log(exercise);
+    //This is where the magic happens! This is where the connection between back and front end takes place
+    axios.post('https://et-exercise-tracker.herokuapp.com/exercises/add' ||'http://localhost:5000/exercises/add', exercise)
       .then(res => console.log(res.data));
 
-    this.setState({
-      username: ''
-    })
+    window.location = '/';
   }
 
   render() {
     return (
-      <div>
-        <h3>Create New User</h3>
-        <form onSubmit={this.onSubmit}>
-          <div className="form-group"> 
-            <label>Username: </label>
-            <input  type="text"
-                required
-                className="form-control"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
-                />
+    <div>
+      <h3>Create New Exercise Log</h3>
+      <form onSubmit={this.onSubmit}>
+        <div className="form-group"> 
+          <label>Username: </label>
+          <select ref="userInput"
+              required
+              className="form-control"
+              value={this.state.username}
+              onChange={this.onChangeUsername}>
+              {
+                this.state.users.map(function(user) {
+                  return <option 
+                    key={user}
+                    value={user}>{user}
+                    </option>;
+                })
+              }
+          </select>
+        </div>
+        <div className="form-group"> 
+          <label>Description: </label>
+          <input  type="text"
+              required
+              className="form-control"
+              value={this.state.description}
+              onChange={this.onChangeDescription}
+              />
+        </div>
+        <div className="form-group">
+          <label>Duration (in minutes): </label>
+          <input 
+              type="text" 
+              className="form-control"
+              value={this.state.duration}
+              onChange={this.onChangeDuration}
+              />
+        </div>
+        <div className="form-group">
+          <label>Date: </label>
+          <div>
+            <DatePicker
+              selected={this.state.date}
+              onChange={this.onChangeDate}
+            />
           </div>
-          <div className="form-group">
-            <input type="submit" value="Create User" className="btn btn-primary" />
-          </div>
-        </form>
-      </div>
+        </div>
+
+        <div className="form-group">
+          <input type="submit" value="Create Exercise Log" className="btn btn-primary" />
+        </div>
+      </form>
+    </div>
     )
   }
 }
