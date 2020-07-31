@@ -32,35 +32,27 @@ export default class ExercisesList extends Component {
   constructor(props) {
     super(props);
 
-    this.deleteExercise = this.deleteExercise.bind(this);
+    this.deleteExercise = this.deleteExercise.bind(this)
 
-    this.state = {
-      exercises: [],
-      backendAddress:
-        "https://et-exercise-tracker.herokuapp.com" ,
-    };
+    this.state = {exercises: []};
   }
 
   componentDidMount() {
-    axios
-      .get(this.state.backendAddress + "/exercises/")
-      .then((response) => {
-        this.setState({ exercises: response.data });
+    axios.get('https://et-exercise-tracker.herokuapp.com//exercises/')
+      .then(response => {
+        this.setState({ exercises: response.data })
       })
       .catch((error) => {
         console.log(error);
-      });
+      })
   }
 
   deleteExercise(id) {
-    axios
-      .delete(this.state.backendAddress + "/exercises/" + id)
-      .then((response) => {
-        console.log(response.data);
-      });
+    axios.delete('https://et-exercise-tracker.herokuapp.com//exercises/'+id)
+      .then(response => { console.log(response.data)});
 
     this.setState({
-      exercises: this.state.exercises.filter((el) => el._id !== id),
+      exercises: this.state.exercises.filter(el => el._id !== id)
       //_id comes from the MongoDB id format, filter returns only ids that are different from those you deleted
     });
   }
